@@ -1,1 +1,1 @@
-Emacs.org
+../Emacs.org
