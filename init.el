@@ -1,3 +1,5 @@
+(setq initial-buffer-choice (lambda () (term "~/.nix-profile/bin/fish")))
+
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)))
@@ -36,7 +38,8 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-(use-package org)
+(use-package org
+  :bind (("C-c t" . org-babel-tangle)))
 
 (use-package command-log-mode)
 

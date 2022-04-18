@@ -1,12 +1,18 @@
-#+PROPERTY: header-args:emacs-lisp :tangle ./init.el 
+#+PROPERTY: header-args:emacs-lisp :tangle ./init.el
+
+* Have emacs open to a terminal by default
+#+begin_src emacs-lisp
+(setq initial-buffer-choice (lambda () (term "~/.nix-profile/bin/fish")))
+#+end_src
 
 * Set babel to tangle the code correctly
 #+begin_src emacs-lisp
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((emacs-lisp . t)))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)))
 
-    (setq org-confirm-babel-evaluate nil)
+  (setq org-confirm-babel-evaluate nil)
+
 #+end_src
 
 * Have emacs put the installed package info in the correct place
@@ -53,7 +59,8 @@
 
 * Install Up-To-Date Org Mode
 #+begin_src emacs-lisp
-  (use-package org)
+  (use-package org
+    :bind (("C-c t" . org-babel-tangle)))
 #+end_src
 
 * Add command log
@@ -197,8 +204,3 @@
   (require 'org-tempo)
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
 #+end_src
-
-# Local Variables:
-# eval: (add-hook 'after-save-hook (lambda ()(if (y-or-n-p "Reload?")(load-file user-init-file))) nil t)
-# eval: (add-hook 'after-save-hook (lambda ()(if (y-or-n-p "Tangle?")(org-babel-tangle))) nil t)
-# End:
