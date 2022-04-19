@@ -1,4 +1,4 @@
-(setq initial-buffer-choice (lambda () (term "~/.nix-profile/bin/fish")))
+;; (setq initial-buffer-choice (lambda () (term "fish")))
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -21,6 +21,8 @@
 ;; Set bell to not exist
 (setq ring-bell-function 'ignore)
 
+(set-face-attribute 'default nil :font "FuraCode NF")
+
 (require 'package)
 
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -38,8 +40,13 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-(use-package org
-  :bind (("C-c t" . org-babel-tangle)))
+(use-package org)
+
+(defun tangle-emacs-config (interactive) (org-babel-tangle-file "~/.config/emacs/Emacs.org"))
+
+(global-set-key (kbd "C-c t c") 'tangle-emacs-config)
+(global-set-key (kbd "C-c t b") 'org-babel-tangle)
+(global-set-key (kbd "C-c t f") 'org-babel-tangle-file)
 
 (use-package command-log-mode)
 
@@ -55,10 +62,10 @@
 
 (use-package counsel
   :bind (("M-x" . counsel-M-x)
-	 ("C-x b" . counsel-ibuffer)
-	 ("C-x C-f" . counsel-find-file)
-	 :map minibuffer-local-map
-	 ("C-r" . 'counsel-minibuffer-history))
+  ("C-x b" . counsel-ibuffer)
+  ("C-x C-f" . counsel-find-file)
+  :map minibuffer-local-map
+  ("C-r" . 'counsel-minibuffer-history))
   :config
   (setq ivy-initial-inputs-alist nil))
 
@@ -138,3 +145,4 @@
 
 (require 'org-tempo)
 (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("py" . "src python"))

@@ -1,8 +1,8 @@
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el
 
-* Have emacs open to a terminal by default
+* Have emacs open to a terminal by default (disabled currently)
 #+begin_src emacs-lisp
-(setq initial-buffer-choice (lambda () (term "~/.nix-profile/bin/fish")))
+;; (setq initial-buffer-choice (lambda () (term "fish")))
 #+end_src
 
 * Set babel to tangle the code correctly
@@ -37,6 +37,11 @@
 
 #+end_src
 
+* Set emacs term font
+  #+begin_src emacs-lisp
+  (set-face-attribute 'default nil :font "FuraCode NF")
+  #+end_src
+
 * Initialize Use-Package with the correct settings
 #+begin_src emacs-lisp
   (require 'package)
@@ -57,10 +62,15 @@
   (setq use-package-always-ensure t)
 #+end_src
 
-* Install Up-To-Date Org Mode
+* Install Up-To-Date Org Mode and bind keys
 #+begin_src emacs-lisp
-  (use-package org
-    :bind (("C-c t" . org-babel-tangle)))
+  (use-package org)
+
+  (defun tangle-emacs-config (interactive) (org-babel-tangle-file "~/.config/emacs/Emacs.org"))
+
+  (global-set-key (kbd "C-c t c") 'tangle-emacs-config)
+  (global-set-key (kbd "C-c t b") 'org-babel-tangle)
+  (global-set-key (kbd "C-c t f") 'org-babel-tangle-file)
 #+end_src
 
 * Add command log
@@ -85,10 +95,10 @@
 #+begin_src emacs-lisp
   (use-package counsel
     :bind (("M-x" . counsel-M-x)
-	   ("C-x b" . counsel-ibuffer)
-	   ("C-x C-f" . counsel-find-file)
-	   :map minibuffer-local-map
-	   ("C-r" . 'counsel-minibuffer-history))
+    ("C-x b" . counsel-ibuffer)
+    ("C-x C-f" . counsel-find-file)
+    :map minibuffer-local-map
+    ("C-r" . 'counsel-minibuffer-history))
     :config
     (setq ivy-initial-inputs-alist nil))
 
@@ -203,4 +213,5 @@
 #+begin_src emacs-lisp
   (require 'org-tempo)
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  (add-to-list 'org-structure-template-alist '("py" . "src python"))
 #+end_src
