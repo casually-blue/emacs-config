@@ -1,18 +1,9 @@
-#+PROPERTY: header-args:emacs-lisp :tangle ./init.el
+#+TITLE: Emacs Configuration File
 
-* Have emacs open to a terminal by default (disabled currently)
-#+begin_src emacs-lisp :tangle no
-(setq initial-buffer-choice (lambda () (term "fish")))
-#+end_src
-
-* Set babel to tangle the code correctly
-#+begin_src emacs-lisp
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)))
-
-  (setq org-confirm-babel-evaluate nil)
-
+* Tangle init.el
+We want init.el to load this config file
+#+begin_src emacs-lisp :tangle ~/.config/emacs/init.el :eval no
+  (org-babel-load-file "~/.config/emacs/Init.org")
 #+end_src
 
 * Have emacs put the installed package info in the correct place
@@ -21,20 +12,29 @@
 #+end_src
 
 * Clean Up emacs interface
+** Hide splash screen
 #+begin_src emacs-lisp
-  ;; Hide splash screen
   (setq inhibit-startup-message t)
+#+end_src
 
-  ;; Minimise status bar
+** Minimise status bar
+#+begin_src emacs-lisp
   (scroll-bar-mode -1)
   (tool-bar-mode -1)
   (tooltip-mode -1)
   (set-fringe-mode 10)
   (menu-bar-mode -1)
+#+end_src
 
-  ;; Set bell to not exist
+** Set bell to not exist
+#+begin_src emacs-lisp
   (setq ring-bell-function 'ignore)
+#+end_src
 
+* Set startup buffers
+** Have emacs open to a terminal by default (disabled currently)
+#+begin_src emacs-lisp :tangle no
+(setq initial-buffer-choice (lambda () (term)))
 #+end_src
 
 * Set emacs term font
@@ -62,15 +62,10 @@
   (setq use-package-always-ensure t)
 #+end_src
 
-* Install Up-To-Date Org Mode and bind keys
+* Install Up-To-Date Org Mode and create a command to shim the config
 #+begin_src emacs-lisp
   (use-package org)
-
-  (defun tangle-emacs-config () (interactive) (org-babel-tangle-file "~/.config/emacs/Emacs.org"))
-
-  (global-set-key (kbd "C-c t c") 'tangle-emacs-config)
-  (global-set-key (kbd "C-c t b") 'org-babel-tangle)
-  (global-set-key (kbd "C-c t f") 'org-babel-tangle-file)
+  (defun tangle-emacs-config () (interactive) (org-babel-tangle-file "~/.config/emacs/Init.org"))
 #+end_src
 
 * Add command log
@@ -154,7 +149,6 @@
     ([remap describe-command] . helpful-command)
     ([remap describe-variable] . counsel-describe-variable)
     ([remap describe-key] . helpful-key))
-
 #+end_src
 
 * Install and set theme
