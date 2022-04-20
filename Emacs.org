@@ -1,8 +1,8 @@
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el
 
 * Have emacs open to a terminal by default (disabled currently)
-#+begin_src emacs-lisp
-;; (setq initial-buffer-choice (lambda () (term "fish")))
+#+begin_src emacs-lisp :tangle no
+(setq initial-buffer-choice (lambda () (term "fish")))
 #+end_src
 
 * Set babel to tangle the code correctly
@@ -66,7 +66,7 @@
 #+begin_src emacs-lisp
   (use-package org)
 
-  (defun tangle-emacs-config (interactive) (org-babel-tangle-file "~/.config/emacs/Emacs.org"))
+  (defun tangle-emacs-config () (interactive) (org-babel-tangle-file "~/.config/emacs/Emacs.org"))
 
   (global-set-key (kbd "C-c t c") 'tangle-emacs-config)
   (global-set-key (kbd "C-c t b") 'org-babel-tangle)

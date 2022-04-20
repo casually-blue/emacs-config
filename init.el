@@ -42,7 +42,7 @@
 
 (use-package org)
 
-(defun tangle-emacs-config (interactive) (org-babel-tangle-file "~/.config/emacs/Emacs.org"))
+(defun tangle-emacs-config () (interactive) (org-babel-tangle-file "~/.config/emacs/Emacs.org"))
 
 (global-set-key (kbd "C-c t c") 'tangle-emacs-config)
 (global-set-key (kbd "C-c t b") 'org-babel-tangle)
