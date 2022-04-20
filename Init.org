@@ -1,7 +1,5 @@
 #+TITLE: Emacs Configuration File
 
-#+TOC: headlines 2
-
 * Tangle init.el
 We want init.el to load this config file
 #+begin_src emacs-lisp :tangle ~/.config/emacs/init.el :eval no
