@@ -203,6 +203,17 @@ We want init.el to load this config file
     (company-idle-delay 0.0))
 #+end_src
 
+** Install major modes for languages
+*** Zig
+    #+begin_src emacs-lisp
+    (use-package zig-mode)
+    #+end_src
+
+*** Rust
+    #+begin_src emacs-lisp
+    (use-package rust-mode)
+    #+end_src
+
 * Register org templates with tempo
 #+begin_src emacs-lisp
   (require 'org-tempo)
