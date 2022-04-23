@@ -37,11 +37,6 @@ We want init.el to load this config file
 (setq initial-buffer-choice (lambda () (term)))
 #+end_src
 
-* Set emacs term font
-  #+begin_src emacs-lisp
-  (set-face-attribute 'default nil :font "FuraCode NF")
-  #+end_src
-
 * Initialize Use-Package with the correct settings
 #+begin_src emacs-lisp
   (require 'package)
@@ -62,10 +57,9 @@ We want init.el to load this config file
   (setq use-package-always-ensure t)
 #+end_src
 
-* Install Up-To-Date Org Mode and create a command to shim the config
+* Install Up-To-Date Org Mode
 #+begin_src emacs-lisp
   (use-package org)
-  (defun tangle-emacs-config () (interactive) (org-babel-tangle-file "~/.config/emacs/Init.org"))
 #+end_src
 
 * Add command log
@@ -104,7 +98,9 @@ We want init.el to load this config file
   (use-package doom-modeline
     :ensure t
     :init (doom-modeline-mode 1)
-    :custom (doom-modeline-height 15))
+    :custom (doom-modeline-height 15)
+    :config
+    (unless (package-installed-p 'doom-modeline) (all-the-icons-install-fonts)))
  
 #+end_src
 
@@ -116,6 +112,7 @@ We want init.el to load this config file
   (dolist (mode '(org-mode-hook
 		  term-mode-hook
 		  shell-mode-hook
+		  vterm-mode-hook
 		  eshell-mode-hook))
     (add-hook mode (lambda () (display-line-numbers-mode 0))))
 #+end_src
@@ -220,3 +217,7 @@ We want init.el to load this config file
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("py" . "src python"))
 #+end_src
+* Install shell
+  #+begin_src emacs-lisp
+  (use-package vterm)
+  #+end_src
