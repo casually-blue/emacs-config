@@ -57,6 +57,11 @@ We want init.el to load this config file
   (setq use-package-always-ensure t)
 #+end_src
 
+* Setup Evil Mode
+#+begin_src emacs-lisp
+(use-package evil
+  :config (evil-mode 1))
+#+end_src
 * Install Up-To-Date Org Mode
 #+begin_src emacs-lisp
   (use-package org)
