@@ -59,6 +59,7 @@ We want init.el to load this config file
 
 * Setup Evil Mode
 #+begin_src emacs-lisp
+(setq evil-want-keybinding nil)
 (use-package evil
   :config (evil-mode 1))
 #+end_src
@@ -175,12 +176,16 @@ We want init.el to load this config file
 #+end_src
 
 * Install Magit
+** Basic Installation
 #+begin_src emacs-lisp
   (use-package magit
     :custom
     (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 #+end_src
-
+** Install org mode compat bindings
+#+begin_src emacs-lisp
+  (use-package evil-collection)
+#+end_src
 * Setup LSP-Mode for code completion and error checking
 ** Create a function to load the correct header for programs
 #+begin_src emacs-lisp
